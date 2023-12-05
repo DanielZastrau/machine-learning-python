@@ -1,13 +1,22 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
 from icecream import ic
 
 class KNearestNeighbors():
 
     def __init__(self, neighbors: int) -> None:
+
+        assert isinstance(neighbors, int), "neighbors has to be an integer"
+
         self.neighbors = neighbors
 
     def fit(self, data_features: np.ndarray, data_classes: np.ndarray) -> None:
+        """ 'Train' the classifier, i.e. set the database.
+        """
+
+        assert isinstance(data_features, np.ndarray), "data_features has to be a numpy array"
+        assert isinstance(data_classes, np.ndarray), "data_classes has to be a numpy array"
 
         self.data_features = data_features
         self.data_classes = data_classes
@@ -16,11 +25,16 @@ class KNearestNeighbors():
         """Euclidean norm equal to sqrt(sum(all components squared))
         """
 
+        assert isinstance(p1, np.ndarray), "p1 has to be a numpy array"
+        assert isinstance(p2, np.ndarray), "p2 has to be a numpy array"
+
         return np.linalg.norm(p1 - p2)
 
     def k_nearest_neighbors(self, new_data: np.ndarray) -> np.ndarray:
         """Find out the who the k nearest neighbors of a new datapoint are.
         """
+
+        assert isinstance(new_data, np.ndarray), "new_data has to be a numpy array"
 
         # standard list comprehension
         distances = np.array([[self._distance(point, datapoint) for datapoint in self.data_features] for point in new_data])
@@ -38,6 +52,8 @@ class KNearestNeighbors():
         """Decide class of a new datapoint by majority voting of nearest neighbors.
         """
 
+        assert isinstance(classes, np.ndarray), "classes has to be a numpy array"
+
         classes_, counts = np.unique(classes, return_counts=True)
 
         return classes_[np.argmax(counts)]
@@ -47,11 +63,15 @@ class KNearestNeighbors():
         """Classify new datapoints.
         """
         
+        assert isinstance(new_data, np.ndarray), "new_data has to be a numpy array"
+
         ids_k_nearest_neighbors = self.k_nearest_neighbors(new_data)
 
         return np.array([self.vote_class(self.data_classes[ids]) for ids in ids_k_nearest_neighbors])
     
 def generate_data_set() -> tuple:
+        """Generates the dataset on which the clf is trained on.
+        """
         
         num_class_one, mean_class_one = 10, np.array([0, 0])
         num_class_two, mean_class_two = 6, np.array([-10, 4])
@@ -71,10 +91,20 @@ def generate_data_set() -> tuple:
         return data, classes
 
 def generate_new_data(how_much: int) -> np.ndarray:
+    """Generates new data, which we use the clf on.
+    """
+
+    assert isinstance(how_much, int), "how_much has to be an integer"
 
     return np.array([np.random.uniform(low=-20, high=20, size=2) for _ in range(how_much)])
 
 def classify_new_data(data_features: np.ndarray, data_classes: np.ndarray, new_data_features: np.ndarray) -> np.ndarray:
+    """Train the clf and apply it to the new data.
+    """
+
+    assert isinstance(data_features, np.ndarray), "data_features has to be a numpy array"
+    assert isinstance(data_classes, np.ndarray), "data_classes has to be a numpy array"
+    assert isinstance(new_data_features, np.ndarray), "new_data_features has to be a numpy array"
 
     clf = KNearestNeighbors(5)
     clf.fit(data_features, data_classes)
@@ -85,7 +115,14 @@ def classify_new_data(data_features: np.ndarray, data_classes: np.ndarray, new_d
 
 def show_data_set(data_features: np.ndarray, data_classes: np.ndarray,
                     new_data_features: np.ndarray, new_data_classes: np.ndarray) -> None:
+    """Visualize the data (on which the clf is trained) and as what class the new datapoints are classified.
+    """
     
+    assert isinstance(data_features, np.ndarray), "data_features has to be a numpy array"
+    assert isinstance(data_classes, np.ndarray), "data_classes has to be a numpy array"
+    assert isinstance(new_data_features, np.ndarray), "new_data_features has to be a numpy array"
+    assert isinstance(new_data_classes, np.ndarray), "new_data_classes has to be a numpy array"
+
     colors = ["red", "blue", "green"]
 
     for datapoint, dataclass in zip(data_features, data_classes):
