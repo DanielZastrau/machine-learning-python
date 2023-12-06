@@ -61,7 +61,7 @@ class LinearRegressor():
 
         return r2_score(y, y_pred)
 
-def test_simple_linear_regressor():
+def test_linear_regressor():
     dataset = fetch_california_housing()
 
     x: np.ndarray = dataset.data[:, :]
@@ -78,4 +78,4 @@ def test_simple_linear_regressor():
     ic(regr.b)
 
 if __name__=="__main__":
-    test_simple_linear_regressor()
+    test_linear_regressor()
