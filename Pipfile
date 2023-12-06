@@ -8,6 +8,7 @@ numpy = "*"
 matplotlib = "*"
 icecream = "*"
 scikit-learn = "*"
+pandas = "*"
 
 [dev-packages]
 
