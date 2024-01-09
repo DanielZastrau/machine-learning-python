@@ -4,7 +4,6 @@ from sklearn.cluster import KMeans
 from sklearn.datasets import load_iris
 from sklearn.metrics import silhouette_score
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
 
 from itertools import product
 
