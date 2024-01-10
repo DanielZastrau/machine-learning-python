@@ -9,6 +9,8 @@ matplotlib = "*"
 icecream = "*"
 scikit-learn = "*"
 pandas = "*"
+tensorflow = "2.14"
+keras = "2.14"
 
 [dev-packages]
 
